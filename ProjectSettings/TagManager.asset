@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CinemachineTarget
   - Fire
+  - Enemigo
+  - Vida
   layers:
   - Default
   - TransparentFX
