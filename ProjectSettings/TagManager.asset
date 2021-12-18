@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - Enemigo
   - Vida
+  - Arma
   layers:
   - Default
   - TransparentFX
