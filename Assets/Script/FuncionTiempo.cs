@@ -10,7 +10,12 @@ public class FuncionTiempo : MonoBehaviour
     public string displayMinuto = "";
     public TextMeshProUGUI time;
 
+    public SpawnZombie spawnZombie;
 
+    private void Start()
+    {
+        //spawnZombie = GetComponent<SpawnZombie>();
+    }
     void Update()
     {
         minutoDia += Time.deltaTime;
@@ -29,6 +34,11 @@ public class FuncionTiempo : MonoBehaviour
         }
 
         time.text = horaDia + ":" + displayMinuto;
+
+        if (horaDia == 7 && minutoDia == 00)
+        {
+            spawnZombie.Spawn();
+        }
 
     }
 }

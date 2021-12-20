@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public int damageRastrillo = 5;
+    public int damageMartillo = 2;
+    public int damageHoz = 7;
+    public int damagePala = 3;
+    public int damageGuitarra = 6;
+    public int damageExtintor = 4;
+    public int damageRegadera = 1;
+
     public Image barraVida;
     public float datoVida = 1;
     public Animator animator;
@@ -63,7 +71,7 @@ public class Player : MonoBehaviour
 
     public void Atacar()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             //atacar
             animator.SetBool("isAttacking", true);

@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class DatosArma : MonoBehaviour
 {
-    public float damageRastrillo = 5;
-    public float damageMartillo = 2;
-    public float damageHoz = 7;
-    public float damagePala = 3;
-    public float damageGuitarra = 6;
-    public float damageExtintor = 4;
-    public float damageRegadera = 1;
+    public int damage;
+    public AudioSource audio;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemigo"))
         {
+            audio.Play();
             Debug.Log("choco");
+            collision.gameObject.GetComponent<Seguir>().vida -= damage;
         }
     }
 }
