@@ -40,7 +40,6 @@ public class Inventario : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("inventario");
             SwitchArmaAtiva();
         }
     }

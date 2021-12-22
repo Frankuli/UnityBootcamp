@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class Seguir : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private NavMeshAgent enemigo;
     [SerializeField] private Animator animator;
+
+    private bool zombieContado = false;
+
+    public TextMeshProUGUI contadorZombies;
 
     public bool isDeath = false;
     public int vida = 10;
@@ -28,6 +33,12 @@ public class Seguir : MonoBehaviour
             isDeath = true;
             animator.SetBool("isDeath", true);
             Destroy(gameObject, 5);
+            if (!zombieContado)
+            {
+                player.GetComponent<Player>().IncrementarContZombie();
+                zombieContado = true;
+            }
+
         }
 
         if (!isDeath)
@@ -43,6 +54,5 @@ public class Seguir : MonoBehaviour
             }
 
         }
-
     }
 }

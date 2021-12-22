@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour
 {
@@ -13,32 +16,41 @@ public class Player : MonoBehaviour
     public int damageExtintor = 4;
     public int damageRegadera = 1;
 
+    public int contZ = 0;
+
     public Image barraVida;
-    public float datoVida = 1;
+    public float datoVida;
     public Animator animator;
 
     [SerializeField] private string nombreArma;
     public List<string> inventario = new List<string>();
 
+    public TextMeshProUGUI contadorZombies;
+
+    public GameObject panelMuerte;
+
     private void Start()
     {
-        inventario.Add("Puño");    
+        inventario.Add("Puño");
     }
 
     private void Update()
     {
         barraVida.fillAmount = datoVida;
+        Muerte();
         Colores();
         Atacar();
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Vida"))
         {
-            IncrementarVida();
+            IncrementarVida( collision.gameObject.GetComponent<DatosVida>().vida, collision);
+            
         }
-      
+
         if (collision.gameObject.CompareTag("Enemigo"))
         {
             AtaqueEnemigo();
@@ -83,9 +95,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void IncrementarVida()
+    public void IncrementarVida(float n, Collision collision)
     {
-        datoVida = 1;
+        if (datoVida < 1)
+        {
+            datoVida += n;
+            Destroy(collision.gameObject);
+        }
+        else if (datoVida > 1)
+        {
+            datoVida = 1;
+        }
     }
 
     public void AtaqueEnemigo()
@@ -95,5 +115,25 @@ public class Player : MonoBehaviour
             datoVida -= 0.1f;
         }
 
+    }
+
+    public void IncrementarContZombie()
+    {
+        contZ++;
+        contadorZombies.text = "Zombies: " + contZ;
+    }
+    
+    public void Muerte()
+    {
+        if (datoVida <= 0)
+        {
+            panelMuerte.SetActive(true);
+           // panelMuerte.GetComponent<Animator>().Play(1);
+        }
+    }
+
+    public void Reinciar()
+    {
+        SceneManager.LoadScene(0);
     }
 }
