@@ -19,6 +19,10 @@ public class FuncionTiempo : MonoBehaviour
     public SpawnZombie spawnZombie;
     public SpawnVida spawnVida;
 
+    public GameObject audioAmbiental;
+    public AudioClip clipNoche;
+    public AudioClip clipDia;
+
     private void Start()
     {
         //spawnZombie = GetComponent<SpawnZombie>();
@@ -42,10 +46,19 @@ public class FuncionTiempo : MonoBehaviour
 
         time.text = horaDia + ":" + displayMinuto;
 
-        if (horaDia == 7 && minutoDia == 00)
+        if (horaDia == 18)
         {
             spawnZombie.Spawn();
             spawnVida.Spawn();
+            audioAmbiental.GetComponent<AudioSource>().clip = clipNoche;
+            audioAmbiental.GetComponent<AudioSource>().Play();
+        }
+
+
+        if (horaDia == 7)
+        {
+            audioAmbiental.GetComponent<AudioSource>().clip = clipDia;
+            audioAmbiental.GetComponent<AudioSource>().Play();
         }
 
         if (horaDia > 23)

@@ -29,9 +29,18 @@ public class Player : MonoBehaviour
 
     public GameObject panelMuerte;
 
+    public GameObject funcionTiempo;
+
+    [SerializeField] private GameObject datosPlayer;
+    public TextMeshProUGUI nombre;
+    public TextMeshProUGUI recordPlayer;
+
     private void Start()
     {
         inventario.Add("Puño");
+
+        datosPlayer = GameObject.Find("DatosJugador");
+        nombre.text = datosPlayer.GetComponent<DatosPlayer>().nombrePlayer;
     }
 
     private void Update()
@@ -134,6 +143,21 @@ public class Player : MonoBehaviour
 
     public void Reinciar()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void Guardar()
+    {
+        if (datosPlayer.GetComponent<DatosPlayer>().zombiesPlayer < contZ )
+        {
+            datosPlayer.GetComponent<DatosPlayer>().zombiesPlayer = contZ;
+        }
+
+        if (datosPlayer.GetComponent<DatosPlayer>().diasPlayer  < funcionTiempo.GetComponent<FuncionTiempo>().dia )
+        {
+            datosPlayer.GetComponent<DatosPlayer>().diasPlayer = funcionTiempo.GetComponent<FuncionTiempo>().dia;
+        }
+
+        recordPlayer.text = "Redord: "+ funcionTiempo.GetComponent<FuncionTiempo>().dia + " Dia(s) y "+ contZ + " Zombies";
     }
 }
